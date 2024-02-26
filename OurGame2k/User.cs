@@ -10,9 +10,9 @@ namespace OurGame2k
 {
     public class User : INotifyPropertyChanged
     {
-        private string _nick;
-        private string _name;
-        private DateTime _birth;
+        private string _nick = "";
+        private string _name = "";
+        private DateTime _birth = DateTime.Now.Date.AddYears(-6);
 
         public string Nick
         {
