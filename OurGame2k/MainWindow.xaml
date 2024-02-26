@@ -1,0 +1,32 @@
+﻿<Window x:Class="OurGame2k.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OurGame2k"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="250" Width="350">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Content="Информация о пользователе:" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" Margin="4"/>
+        <Label Grid.Row="1" Grid.Column="0" Content="Ник:" FontSize="14" FontWeight="Regular" FontStyle="Italic" HorizontalAlignment="Right" Margin="4"/>
+        <Label Grid.Row="2" Grid.Column="0" Content="Имя:" FontSize="14" FontWeight="Regular" FontStyle="Italic" HorizontalAlignment="Right" Margin="4"/>
+        <Label Grid.Row="3" Grid.Column="0" Content="Дата рождения:" FontSize="14" FontWeight="Regular" FontStyle="Italic" HorizontalAlignment="Right" Margin="4"/>
+        <TextBox x:Name="TbNick" Grid.Row="1" Grid.Column="1" FontSize="14" FontWeight="Regular" Margin="4" VerticalContentAlignment="Center"/>
+        <Button x:Name="BtnDel" Grid.Row="1" Grid.Column="2" Width="24" Height="24" Margin="4" Background="#FFF7ACAC"></Button>
+        <TextBox x:Name="TbName" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" FontSize="14" FontWeight="Regular" Margin="4" VerticalContentAlignment="Center"/>
+        <DatePicker x:Name="DpBirth" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Margin="4" FontSize="14" VerticalContentAlignment="Center"/>
+        <Button x:Name="BtnLogin" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Bottom" Content="Войти" FontSize="14" FontWeight="Black" Background="#FFCDF3A8" Margin="4"/>
+    </Grid>
+</Window>
