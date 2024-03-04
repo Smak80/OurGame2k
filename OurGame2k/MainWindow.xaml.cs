@@ -39,7 +39,7 @@ namespace OurGame2k
             };
             DpBirth.SetBinding(DatePicker.SelectedDateProperty, bBirth);
 
-
+            BtnLogin.Command = _viewModel.LoginCommand;
         }
     }
 }

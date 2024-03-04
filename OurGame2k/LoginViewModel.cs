@@ -10,16 +10,14 @@ namespace OurGame2k
 {
     public class LoginViewModel : INotifyPropertyChanged
     {
-        private User _user = new User();
+        private User _user = new ();
 
         public User CurrentUser
         {
             get => _user;
             private set => SetField(ref _user, value);
         }
-
-
-
+        
         public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
@@ -33,6 +31,17 @@ namespace OurGame2k
             field = value;
             OnPropertyChanged(propertyName);
             return true;
+        }
+
+        private Command _loginCommand;
+        public Command LoginCommand => _loginCommand;
+
+        public LoginViewModel()
+        {
+            _loginCommand = new(
+                CurrentUser.SaveOrUpdateUser, 
+                _ => CurrentUser.IsValid
+            );
         }
     }
 }

@@ -13,6 +13,7 @@ namespace OurGame2k
         private string _nick = "";
         private string _name = "";
         private DateTime _birth = DateTime.Now.Date.AddYears(-6);
+        private static readonly List<User> _users = new List<User>();
 
         public string Nick
         {
@@ -32,6 +33,12 @@ namespace OurGame2k
             set => SetField(ref _birth, value);
         }
 
+        public bool IsValid =>
+            !Nick.Trim().Equals("") 
+            && !Name.Trim().Equals("") 
+            && Birth <= DateTime.Now.Date.AddYears(-6) 
+            && Birth >= DateTime.Now.Date.AddYears(-120);
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
@@ -45,6 +52,16 @@ namespace OurGame2k
             field = value;
             OnPropertyChanged(propertyName);
             return true;
+        }
+
+        public void SaveOrUpdateUser(object? p)
+        {
+
+        }
+
+        public void DeleteUser()
+        {
+
         }
     }
 }

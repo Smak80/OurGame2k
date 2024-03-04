@@ -13,12 +13,16 @@ namespace OurGame2k
         {
             return canExecute?.Invoke(parameter) ?? true; // возможность вызова проверяем с помощью вапросека
         }
-
+        
         public void Execute(object? parameter)
         {
-            throw new NotImplementedException();
+            action(parameter);
         }
 
-        public event EventHandler? CanExecuteChanged;
+        public event EventHandler? CanExecuteChanged
+        {
+            add => CommandManager.RequerySuggested += value;
+            remove => CommandManager.RequerySuggested -= value;
+        }
     }
 }
