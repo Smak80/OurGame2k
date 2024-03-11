@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace OurGame2k
@@ -33,6 +36,7 @@ namespace OurGame2k
             set => SetField(ref _birth, value);
         }
 
+        [JsonIgnore]
         public bool IsValid =>
             !Nick.Trim().Equals("") 
             && !Name.Trim().Equals("") 
@@ -53,15 +57,58 @@ namespace OurGame2k
             OnPropertyChanged(propertyName);
             return true;
         }
+        public static void LoadUsers()
+        {
+            try
+            {
+                using FileStream fs = new("Users.Info", FileMode.Open);
+                _users.Clear();
+                JsonSerializer.Deserialize<List<User>>(fs)?.ForEach(_users.Add);
+
+            }
+            catch
+            {
+
+            }
+            
+        }
 
         public void SaveOrUpdateUser(object? p)
         {
-
+            var u = _users.FirstOrDefault(user => user.Nick.Equals(Nick));
+            if (u != null)
+            {
+                u.Name = Name;
+                u.Birth = Birth;
+            }
+            else
+            {
+                
+                _users.Add(Clone());
+            }
+            using FileStream fs = new("Users.Info", FileMode.Create);
+            JsonSerializer.Serialize(fs, _users);
         }
 
-        public void DeleteUser()
+        public bool IsExists => _users.FirstOrDefault(user => user.Nick.Equals(Nick)) != null;
+        public void DeleteUser(object? p)
         {
+            var u = _users.FirstOrDefault(user => user.Nick.Equals(Nick));
+            if (u != null)
+            {
+                _users.Remove(u);
+            }
+            using FileStream fs = new("Users.Info", FileMode.Create);
+            JsonSerializer.Serialize(fs, _users);
+        }
 
+        public User Clone()
+        {
+            var c = new User();
+            c.Name = Name;
+            c.Birth = Birth;
+            c.Nick = Nick;
+            return c;
         }
     }
 }

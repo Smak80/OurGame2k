@@ -35,9 +35,13 @@ namespace OurGame2k
 
         private Command _loginCommand;
         public Command LoginCommand => _loginCommand;
+        private Command _removeCommand;
+        public Command RemoveCommand => _removeCommand ??= new Command(
+            CurrentUser.DeleteUser, _ => CurrentUser.IsExists);
 
         public LoginViewModel()
         {
+            User.LoadUsers();
             _loginCommand = new(
                 CurrentUser.SaveOrUpdateUser, 
                 _ => CurrentUser.IsValid
