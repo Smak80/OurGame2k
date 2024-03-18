@@ -11,7 +11,7 @@ namespace OurGame2k
     public class LoginViewModel : INotifyPropertyChanged
     {
         private User _user = new ();
-
+        private GameWindow _game = new();
         public User CurrentUser
         {
             get => _user;
@@ -43,7 +43,11 @@ namespace OurGame2k
         {
             User.LoadUsers();
             _loginCommand = new(
-                CurrentUser.SaveOrUpdateUser, 
+                p=>
+                {
+                    CurrentUser.SaveOrUpdateUser(p);
+                    _game.Show();
+                }, 
                 _ => CurrentUser.IsValid
             );
         }
