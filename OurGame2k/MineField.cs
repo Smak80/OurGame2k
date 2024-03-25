@@ -49,11 +49,26 @@ namespace OurGame2k
         private int CellSize => int.Min(Height / Rows, Width / Cols);
         private int LShift => (Width - CellSize * Cols) / 2;
         private int TShift => (Height - CellSize * Rows) / 2;
-        private CellInfo this[int row, int col] => this[row * Cols + col];
+        private CellInfo? this[int row, int col] {
+            get
+            {
+                if (row < 0 || row >= Rows || col < 0 || col >= Cols) return null;
+                return this[row * Cols + col];
+            }
+        }
+        private int _mineCount = 20;
+        private Random _rand = new Random();
+
         public MineField(byte rows = 30, byte cols = 15)
         {
             Rows = rows;
             Cols = cols;
+            FillField();
+        }
+
+        private void FillField()
+        {
+            Clear();
             for (byte i = 0; i < Rows; i++)
             {
                 for (byte j = 0; j < Cols; j++)
@@ -62,6 +77,48 @@ namespace OurGame2k
                 }
             }
         }
+
+        public void InitializeMineField()
+        {
+            FillField();
+            for (int i = 0; i < _mineCount; i++)
+            {
+                int row, col;
+                do
+                {
+                    col = _rand.Next(Cols);
+                    row = _rand.Next(Rows);
+                } while (this[row, col].Type == CellType.Mine);
+                this[row, col].Type = CellType.Mine;
+                GetNeighbours(this[row, col]).ForEach(nc => {
+                    if (nc.Type == CellType.Empty) 
+                    { 
+                        nc.Type = CellType.Number;
+                    }
+                    nc.MineCount++;
+                });
+            }
+            
+            UpdateCells();
+        }
+
+        private List<Cell> GetNeighbours (Cell cell) 
+        {
+            List<Cell> neighbours = new List<Cell>();
+            for (var i = -1; i <=1; i++)
+            {
+                for(var  j = -1; j <= 1; j++)
+                {
+                    var t = this[cell.Row + i, cell.Col + j];
+                    if (t != null)
+                    {
+                        neighbours.Add(t);
+                    }
+                }
+            }
+
+            return neighbours;
+        } 
 
         public event PropertyChangedEventHandler? PropertyChanged;
 

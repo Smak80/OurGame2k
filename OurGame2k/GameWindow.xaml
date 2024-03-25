@@ -12,7 +12,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Button Grid.Row="0" Content="Старт" FontSize="14" Margin="4"/>
+        <Button x:Name="BtnStart" Grid.Row="0" Content="Старт" FontSize="14" Margin="4" />
 
         <ItemsControl Grid.Row="1" x:Name="MineField" SizeChanged="MineField_OnSizeChanged">
             <ItemsControl.ItemsPanel>
@@ -21,19 +21,20 @@
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         
-        <ItemsControl.ItemTemplate>
-            <DataTemplate>
-                <DataTemplate.Resources>
-                    <Style TargetType="Button">
-                        <Setter Property="Margin" Value="{Binding Path=Margin}"/>
-                        <Setter Property="Width" Value="{Binding Path=Size}"/>
-                        <Setter Property="Height" Value="{Binding Path=Size}"/>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <DataTemplate.Resources>
+                        <Style TargetType="Button">
+                            <Setter Property="Margin" Value="{Binding Path=Margin}"/>
+                            <Setter Property="Width" Value="{Binding Path=Size}"/>
+                            <Setter Property="Height" Value="{Binding Path=Size}"/>
+                            <Setter Property="Background" Value="{Binding Path=Color}" />
                         </Style>
-                </DataTemplate.Resources>
-                <Button />
-            </DataTemplate>
+                    </DataTemplate.Resources>
+                    <Button />
+                </DataTemplate>
         
-        </ItemsControl.ItemTemplate>
+            </ItemsControl.ItemTemplate>
         </ItemsControl>
 
 

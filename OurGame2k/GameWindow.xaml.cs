@@ -27,6 +27,7 @@ namespace OurGame2k
             InitializeComponent();
             DataContext = _viewModel;
             MineField.ItemsSource = _viewModel.Field;
+            BtnStart.Command = _viewModel.StartCommand;
         }
 
 
