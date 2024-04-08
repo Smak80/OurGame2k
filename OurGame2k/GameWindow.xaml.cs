@@ -36,5 +36,6 @@ namespace OurGame2k
             _viewModel.Field.Width = (int)e.NewSize.Width;
             _viewModel.Field.Height = (int)e.NewSize.Height;
         }
+
     }
 }

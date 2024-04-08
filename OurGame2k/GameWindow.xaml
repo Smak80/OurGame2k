@@ -14,7 +14,7 @@
 
         <Button x:Name="BtnStart" Grid.Row="0" Content="Старт" FontSize="14" Margin="4" />
 
-        <ItemsControl Grid.Row="1" x:Name="MineField" SizeChanged="MineField_OnSizeChanged">
+        <ItemsControl Grid.Row="1" x:Name="MineField" SizeChanged="MineField_OnSizeChanged" >
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Canvas IsItemsHost="True"  Background="White"/>
@@ -29,9 +29,23 @@
                             <Setter Property="Width" Value="{Binding Path=Size}"/>
                             <Setter Property="Height" Value="{Binding Path=Size}"/>
                             <Setter Property="Background" Value="{Binding Path=Color}" />
+                            <Setter Property="Content" Value="{Binding Path= Text}"/>
                         </Style>
                     </DataTemplate.Resources>
-                    <Button />
+                    <Button>
+                        <Button.InputBindings>
+                            <MouseBinding 
+                                Command="{Binding OpenCellCommand}"
+                                Gesture="LeftClick"
+                            >
+                            </MouseBinding>
+                            <MouseBinding 
+                                Command="{Binding MarkCellCommand}"
+                                Gesture="RightClick"
+                            >
+                            </MouseBinding>
+                        </Button.InputBindings>
+                    </Button>
                 </DataTemplate>
         
             </ItemsControl.ItemTemplate>

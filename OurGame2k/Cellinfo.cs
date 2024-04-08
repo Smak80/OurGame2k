@@ -11,15 +11,53 @@ namespace OurGame2k
 {
     public class CellInfo(byte row, byte col) : Cell(row, col)
     {
+        public string Id => $"{Row},{Col}";
         public int Left { get; set; }
         public int Top { get; set; }
         public int Size { get; set; }
         public Thickness Margin => new(Left, Top, 0, 0);
-        public SolidColorBrush Color => Type switch
+
+        public static event Action? CellUpdateNeeded;
+
+        public SolidColorBrush Color
         {
-            CellType.Mine => new SolidColorBrush(Colors.Red),
-            _ => new(Colors.Lavender)
+            get
+            {
+                if (!IsOpen)
+                {
+                    return new SolidColorBrush(Colors.Bisque);
+                }
+                if (IsMarked)
+                {
+                    return new SolidColorBrush(Colors.Aquamarine);
+                }
+                return Type switch
+                {
+                    CellType.Mine => new SolidColorBrush(Colors.Red),
+                    _ => new(Colors.Lavender)
+                };
+
+            }
+        }
+
+        public string Text => Type switch
+        {
+            CellType.Number => IsOpen && MineCount > 0 ? MineCount.ToString() : "",
+            _ => ""
         };
+
+        private Command? _openCellCommand;
+        public Command OpenCellCommand => _openCellCommand ??= new Command(_ =>
+        {
+            IsOpen = true;
+            CellUpdateNeeded?.Invoke();
+        });
+        private Command? _markCellCommand;
+        public Command MarkCellCommand => _markCellCommand ??= new Command(_ =>
+        {
+            IsMarked = true;
+            CellUpdateNeeded?.Invoke();
+        });
     }
 
 }

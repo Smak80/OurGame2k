@@ -109,6 +109,8 @@ namespace OurGame2k
             {
                 for(var  j = -1; j <= 1; j++)
                 {
+                    if (i==0 && j==0)
+                        continue;
                     var t = this[cell.Row + i, cell.Col + j];
                     if (t != null)
                     {
@@ -122,7 +124,7 @@ namespace OurGame2k
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        private void UpdateCells()
+        public void UpdateCells()
         {
             if (Height > 0 && Width > 0)
             {
