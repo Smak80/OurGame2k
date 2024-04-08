@@ -23,13 +23,13 @@ namespace OurGame2k
         {
             get
             {
-                if (!IsOpen)
-                {
-                    return new SolidColorBrush(Colors.Bisque);
-                }
                 if (IsMarked)
                 {
                     return new SolidColorBrush(Colors.Aquamarine);
+                }
+                if (!IsOpen)
+                {
+                    return new SolidColorBrush(Colors.Bisque);
                 }
                 return Type switch
                 {

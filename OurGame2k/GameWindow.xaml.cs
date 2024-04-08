@@ -30,7 +30,6 @@ namespace OurGame2k
             BtnStart.Command = _viewModel.StartCommand;
         }
 
-
         private void MineField_OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
             _viewModel.Field.Width = (int)e.NewSize.Width;
